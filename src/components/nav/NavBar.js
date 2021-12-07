@@ -14,10 +14,10 @@ export const NavBar = () => {
                 <Link className="navbar__link" to="/">All Posts</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">My Feed</Link>
+                <Link className="navbar__link" to="/myfeed">My Feed</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">Create Post</Link>
+                <Link className="navbar__link" to="/">Create Group</Link>
             </li>
             {
                 (localStorage.getItem("quotewall_user") !== null) ?
