@@ -1,36 +1,42 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
-import { getMyQuotes, getQuotes, getSubscribedQuotes } from "./QuoteProvider.js"
-import { getUserGroups } from '../groups/GroupProvider.js'
+import { getGroup, getQuotesByGroup } from "./GroupProvider.js"
 import { useParams } from "react-router"
-import "./Quotes.css"
 
-export const QuoteFeed = () => {
+
+export const GroupPage = () => {
     const [quotes, setQuotes] = useState([])
-    const [userGroups, setUserGroups] = useState([])
-    const pathname = window.location.pathname
+    const [group, setGroup] = useState({})
+    const { groupId } = useParams()
 
     useEffect(() => {
-        if (pathname === '/myfeed') {
-            getSubscribedQuotes()
+        getQuotesByGroup(groupId)
             .then(res => setQuotes(res))
-        } else {
-            getQuotes()
-                .then(res => setQuotes(res))
-        }
     },
         [])
 
     useEffect(() => {
-        getUserGroups()
-            .then(res => setUserGroups(res))
+        getGroup(groupId)
+            .then(res => setGroup(res))
     },
-        [])
+        {})
 
 
     return (
         <>
-            <h2>Quote Feed</h2>
+            <h2>{group?.name} Feed</h2>
+            <button>New Quote</button>
+            <section className="membersContainer">
+                <div>
+                    <h3> Group Members </h3>
+                    <ul className="membersList"></ul>
+                    {group?.members?.map(member => {
+                        return <>
+                            <li>{member?.username}</li>
+                        </>
+                    })}
+                </div>
+            </section>
             {quotes?.map(quote => {
                 return <>
                     <section className="quoteContainer">
@@ -47,14 +53,6 @@ export const QuoteFeed = () => {
                     </section>
                 </>
             })}
-            <h2>My Groups</h2>
-            <ul>
-                {userGroups?.map(group => {
-                    return <>
-                        <li>{group.name}</li>
-                    </>
-                })}
-            </ul>
         </>
     )
 }
