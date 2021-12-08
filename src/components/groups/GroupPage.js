@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { getGroup, getQuotesByGroup, getCurrentUser } from "./GroupProvider.js"
 import { useParams } from "react-router"
+import '../quotes/Quotes.css'
 
 
 export const GroupPage = () => {
@@ -45,29 +46,33 @@ export const GroupPage = () => {
             <h2>{group?.name} Feed</h2>
             <button
                 onClick={() => history.push(`/groups/${groupId}/newquote`)}
-                    >New Quote</button>
-            <section className="membersContainer">
-                <div>
-                    <h3> Group Members </h3>
-                    <ul className="membersList"></ul>
-                    {group?.members?.map(member => {
+            >New Quote</button>
+                <section className="membersContainer">
+                    <div className="members">
+                        <h3> Group Members </h3>
+                        <ul className="membersList"></ul>
+                        {group?.members?.map(member => {
+                            return <>
+                                <li>{member?.username}</li>
+                            </>
+                        })}
+                    </div>
+                </section>
+            <section className="groupView">
+                <section className="quotesDisplay">
+                    {quotes?.map(quote => {
                         return <>
-                            <li>{member?.username}</li>
-                        </>
-                    })}
-                </div>
-            </section>
-            {quotes?.map(quote => {
-                return <>
-                    <section className="quoteContainer">
-                        <div className="quoteHeader">
-                            <h3>{`"${quote.quote_text}"`}</h3>
-                            <h4>{`- ${quote.quoter}`}</h4>
-                        </div>
-                        <div className="quoteFooter">
-                            <div>
-                                Posted by: {quote.user.username}<br />
-                                Posted in: {quote.group.name}
+                            <section className="quoteContainer">
+                                <div className="quoteHeader">
+                                    <h3>{`"${quote.quote_text}"`}</h3>
+                                    <h4 className="quoteHeader quoter">{`- ${quote.quoter}`}</h4>
+                                </div>
+                                <div className="quoteFooter">
+                                    <div>
+                                        Posted by: {quote.user.username}<br />
+                                        Posted in: {quote.group.name}
+                                    </div>
+                                </div>
                                 {
                                     verifyUser(quote.user.id)
                                         ? <><button onClick={() => {
@@ -76,11 +81,11 @@ export const GroupPage = () => {
                                         : ""
 
                                 }
-                            </div>
-                        </div>
-                    </section>
-                </>
-            })}
+                            </section>
+                        </>
+                    })}
+                </section>
+            </section>
         </>
     )
 }

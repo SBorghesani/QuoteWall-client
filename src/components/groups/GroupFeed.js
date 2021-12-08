@@ -2,17 +2,24 @@ import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { getAllGroups, getUserGroups, joinGroup, leaveGroup } from "./GroupProvider.js"
 import { useParams } from "react-router"
+import './Groups.css'
 
 
 export const GroupFeed = () => {
     const [groups, setGroups] = useState([])
     const [userGroups, setUserGroups] = useState([])
     const history = useHistory()
+    const pathname = window.location.pathname
 
 
     useEffect(() => {
-        getAllGroups()
-            .then(res => setGroups(res))
+        if (pathname === '/mygroups') {
+            getUserGroups()
+                .then(res => setGroups(res))
+        } else {
+            getAllGroups()
+                .then(res => setGroups(res))
+        }
     },
         [])
 
@@ -47,33 +54,34 @@ export const GroupFeed = () => {
 
     return (
         <>
-            <h2>All Groups:</h2>
-            {groups?.map(group => {
-                return <>
-                    <section className="groupContainer">
-                        <div className="groupHeader">
-                            <h3>{`${group.name}`}</h3>
-                            <h4>{`${group.description}`}</h4>
-                        </div>
-                        {
-                            isUserMember(group.id)
-                                ? <>
-                                    <button className="leaveButton"
-                                        onClick={() => leaveGroup(group.id).then(renderComponent)}
-                                    >Leave</button>
-                                    <button className="viewButton"
-                                        onClick={() => {
-                                            history.push(`/groups/${group.id}`)
-                                        }}>View</button>
-                                </>
-                                : <button className="joinButton"
-                                    onClick={() => joinGroup(group.id).then(renderComponent)}
-                                >Join</button>
-                        }
-
-                    </section>
-                </>
-            })}
+            <h2>{pathname === '/mygroups' ? 'My Groups:' : 'All Groups:'}</h2>
+            <section className="groupsDisplay">
+                {groups?.map(group => {
+                    return <>
+                        <section className="groupContainer">
+                            <div className="groupHeader">
+                                <h3>{`${group.name}`}</h3>
+                                <h4>{`${group.description}`}</h4>
+                            </div>
+                            {
+                                isUserMember(group.id)
+                                    ? <>
+                                        <button className="leaveButton"
+                                            onClick={() => leaveGroup(group.id).then(renderComponent)}
+                                        >Leave</button>
+                                        <button className="viewButton"
+                                            onClick={() => {
+                                                history.push(`/groups/${group.id}`)
+                                            }}>View</button>
+                                    </>
+                                    : <button className="joinButton"
+                                        onClick={() => joinGroup(group.id).then(renderComponent)}
+                                    >Join</button>
+                            }
+                        </section>
+                    </>
+                })}
+            </section>
         </>
     )
 }

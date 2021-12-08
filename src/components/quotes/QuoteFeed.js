@@ -36,7 +36,7 @@ export const QuoteFeed = () => {
                     <section className="quoteContainer">
                         <div className="quoteHeader">
                             <h3>{`"${quote.quote_text}"`}</h3>
-                            <h4>{`- ${quote.quoter}`}</h4>
+                            <h4 className="quoteHeader quoter">{`- ${quote.quoter}`}</h4>
                         </div>
                         <div className="quoteFooter">
                             <div>

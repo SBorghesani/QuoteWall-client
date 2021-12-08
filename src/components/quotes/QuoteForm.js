@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useParams } from "react-router"
 import { getQuote, addNewQuote } from "./QuoteProvider"
 import { getGroup } from "../groups/GroupProvider"
+import './Quotes.css'
 
 export const QuoteForm = () => {
     const { groupId } = useParams()
