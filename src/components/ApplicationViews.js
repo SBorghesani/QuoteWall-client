@@ -5,6 +5,7 @@ import { GroupPage } from './groups/GroupPage.js'
 import { QuoteForm } from "./quotes/QuoteForm.js"
 import { GroupForm } from './groups/GroupForm.js'
 import { GroupFeed } from './groups/GroupFeed.js'
+import { EditQuote } from "./quotes/EditQuote.js"
 
 export const ApplicationViews = () => {
     return <>
@@ -15,13 +16,16 @@ export const ApplicationViews = () => {
             <Route exact path="/myfeed">
                 <QuoteFeed/>
             </Route>
+            <Route exact path="/quotes/:quoteId(\d+)/edit">
+                <EditQuote/>
+            </Route>
             <Route exact path="/groups">
                 <GroupFeed/>
             </Route>
             <Route exact path="/groups/:groupId(\d+)">
                 <GroupPage/>
             </Route>
-            <Route exact path="/groups/:groupId(\d+)/newpost">
+            <Route exact path="/groups/:groupId(\d+)/newquote">
                 <QuoteForm/>
             </Route>
             <Route exact path="/groups/new">

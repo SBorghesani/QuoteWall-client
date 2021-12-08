@@ -1,40 +1,44 @@
 import React, { useState, useEffect } from "react"
 import { useHistory } from 'react-router-dom'
 import { useParams } from "react-router"
-import { getQuote, addNewQuote } from "./QuoteProvider"
-import { getGroup } from "../groups/GroupProvider"
+import { getQuote, updateQuote, deleteQuote } from "./QuoteProvider"
 
-export const QuoteForm = () => {
-    const { groupId } = useParams()
-    const [newQuote, setNewQuote] = useState({})
-    const [group, setGroup] = useState({})
+export const EditQuote = () => {
+    const { quoteId } = useParams()
+    const [quote, setQuote] = useState({})
     const history = useHistory()
 
     useEffect(() => {
-        getGroup(groupId)
-            .then(res => setGroup(res))
-    }, 
-    [])
+        getQuote(quoteId)
+            .then(res => setQuote(res))
+    },
+        {})
 
     const handleControlledInputChange = (event) => {
         /*
             When changing a state object or array, always create a new one
             and change state instead of modifying current one
         */
-        const quoteCopy = Object.assign({}, newQuote)
+        const quoteCopy = Object.assign({}, quote)
         quoteCopy[event.target.name] = event.target.value
-        setNewQuote(quoteCopy)
+        setQuote(quoteCopy)
     }
 
     const constructNewQuote = () => {
-        const quoteCopy = { ...newQuote }
+        const quoteCopy = { ...quote }
         console.log(quoteCopy)
-        quoteCopy.groupId = parseInt(groupId)
-        addNewQuote(quoteCopy)
-            .then(history.push(`/groups/${groupId}`))
+        quoteCopy.groupId = parseInt(quoteCopy.group.id)
+        quoteCopy.quoteText = quoteCopy.quote_text
+        updateQuote(quoteCopy)
+            .then(history.push(`/groups/${quoteCopy.group.id}`))
     }
 
-    
+    const quoteDelete = (quoteId) => {
+        const quoteCopy = { ...quote }
+        deleteQuote(quoteId)
+            .then(history.push(`/groups/${quoteCopy.group.id}`))
+    }
+
     return (
         <form className="quoteForm">
             <div className="panel-block">
@@ -42,11 +46,11 @@ export const QuoteForm = () => {
                     <div className="field">
                         <label htmlFor="quoteText" className="quoteText">Quote: </label>
                         <div className="control">
-                            <textarea 
-                                class="textarea" 
+                            <textarea
+                                class="textarea"
                                 name="quoteText"
                                 placeholder="Enter quote here"
-                                value={newQuote.quoteText}
+                                value={quote.quote_text}
                                 onChange={handleControlledInputChange}
                             ></textarea>
                         </div>
@@ -57,23 +61,23 @@ export const QuoteForm = () => {
                             <input type="text" name="quoter" required autoFocus className="input"
                                 proptype="varchar"
                                 placeholder="Who are you quoting?"
-                                value={newQuote.quoter}
+                                value={quote.quoter}
                                 onChange={handleControlledInputChange}
                             />
                         </div>
-                    </div>     
+                    </div>
                     <div className="field">
                         <label htmlFor="context" className="context">Provide Context about quote: </label>
                         <div className="control">
-                            <textarea 
-                                class="textarea" 
+                            <textarea
+                                class="textarea"
                                 name="context"
                                 placeholder="Provide Context"
-                                value={newQuote.context}
+                                value={quote.context}
                                 onChange={handleControlledInputChange}
                             ></textarea>
                         </div>
-                    </div>                 
+                    </div>
                     <div className="field">
                         <div className="control">
                             <button type="submit"
@@ -84,11 +88,19 @@ export const QuoteForm = () => {
                                 className="button is-link">
                                 {"Save"}
                             </button>
+                            <button type="delete"
+                                onClick={evt => {
+                                    evt.preventDefault()
+                                    quoteDelete(quote.id)
+                                }}
+                                className="button is-link">
+                                {"Delete"}
+                            </button>
                         </div>
                     </div>
                 </form>
             </div>
         </form>
     )
-    
+
 }

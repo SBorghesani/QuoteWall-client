@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Link } from "react-router-dom"
-import { getGroup, getQuotesByGroup } from "./GroupProvider.js"
+import { Link, useHistory } from "react-router-dom"
+import { getGroup, getQuotesByGroup, getCurrentUser } from "./GroupProvider.js"
 import { useParams } from "react-router"
 
 
 export const GroupPage = () => {
     const [quotes, setQuotes] = useState([])
     const [group, setGroup] = useState({})
+    const [currentUser, setCurrentUser] = useState({})
     const { groupId } = useParams()
+    const history = useHistory()
+    const user = localStorage.getItem('quotewall_user')
 
     useEffect(() => {
         getQuotesByGroup(groupId)
@@ -21,11 +24,28 @@ export const GroupPage = () => {
     },
         {})
 
+    useEffect(() => {
+        getCurrentUser()
+            .then(res => setCurrentUser(res))
+    },
+        {})
+
+    //checks current user against quotes to determine if user can edit
+    const verifyUser = (userId) => {
+        if (currentUser.id === userId) {
+            return true
+        } else {
+            return false
+        }
+    }
+
 
     return (
         <>
             <h2>{group?.name} Feed</h2>
-            <button>New Quote</button>
+            <button
+                onClick={() => history.push(`/groups/${groupId}/newquote`)}
+                    >New Quote</button>
             <section className="membersContainer">
                 <div>
                     <h3> Group Members </h3>
@@ -48,6 +68,14 @@ export const GroupPage = () => {
                             <div>
                                 Posted by: {quote.user.username}<br />
                                 Posted in: {quote.group.name}
+                                {
+                                    verifyUser(quote.user.id)
+                                        ? <><button onClick={() => {
+                                            history.push(`/quotes/${quote.id}/edit`)
+                                        }}>Edit</button></>
+                                        : ""
+
+                                }
                             </div>
                         </div>
                     </section>
