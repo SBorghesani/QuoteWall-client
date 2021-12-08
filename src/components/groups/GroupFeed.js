@@ -7,7 +7,6 @@ import { useParams } from "react-router"
 export const GroupFeed = () => {
     const [groups, setGroups] = useState([])
     const [userGroups, setUserGroups] = useState([])
-    const user = localStorage.getItem('quotewall_user')
     const history = useHistory()
 
 
@@ -38,6 +37,7 @@ export const GroupFeed = () => {
         }
     }
 
+    //renders component when user joins/leaves a group
     const renderComponent = () => {
         getUserGroups()
             .then(res => {
@@ -57,13 +57,20 @@ export const GroupFeed = () => {
                         </div>
                         {
                             isUserMember(group.id)
-                                ? <button className="leaveButton"
-                                    onClick={() => leaveGroup(group.id).then(renderComponent)}
-                                >Leave</button>
+                                ? <>
+                                    <button className="leaveButton"
+                                        onClick={() => leaveGroup(group.id).then(renderComponent)}
+                                    >Leave</button>
+                                    <button className="viewButton"
+                                        onClick={() => {
+                                            history.push(`/groups/${group.id}`)
+                                        }}>View</button>
+                                </>
                                 : <button className="joinButton"
                                     onClick={() => joinGroup(group.id).then(renderComponent)}
                                 >Join</button>
                         }
+
                     </section>
                 </>
             })}

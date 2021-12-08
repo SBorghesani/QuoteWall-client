@@ -11,13 +11,13 @@ export const NavBar = () => {
                 <Link className="navbar__link" to="/"><img className="navbar__logo" alt="logo"/>Home</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">All Posts</Link>
+                <Link className="navbar__link" to="/groups">Browse Groups</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/myfeed">My Feed</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">Create Group</Link>
+                <Link className="navbar__link" to="/groups/new">Create Group</Link>
             </li>
             {
                 (localStorage.getItem("quotewall_user") !== null) ?

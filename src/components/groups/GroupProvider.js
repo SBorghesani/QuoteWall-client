@@ -44,7 +44,7 @@ export const getAllGroups = () => {
             "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
         },
     })
-    .then(res => res.json())
+        .then(res => res.json())
 }
 
 export const joinGroup = (groupId) => {
@@ -65,5 +65,15 @@ export const leaveGroup = (groupId) => {
             "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
         },
     })
+}
+
+export const getCurrentUser = () => {
+    return fetch(`http://localhost:8000/users`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
+        },
+    })
+        .then(res => res.json())
 }
 
