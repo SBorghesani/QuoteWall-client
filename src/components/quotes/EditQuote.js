@@ -6,6 +6,7 @@ import { getQuote, updateQuote, deleteQuote } from "./QuoteProvider"
 export const EditQuote = () => {
     const { quoteId } = useParams()
     const [quote, setQuote] = useState({})
+    const [group, setGroup] = useState()
     const history = useHistory()
 
     useEffect(() => {
@@ -13,6 +14,11 @@ export const EditQuote = () => {
             .then(res => setQuote(res))
     },
         {})
+
+    useEffect(() => {
+        getQuote(quoteId)
+            .then(res => setGroup(res.group))
+    }, {})
 
     const handleControlledInputChange = (event) => {
         /*
@@ -24,6 +30,7 @@ export const EditQuote = () => {
         setQuote(quoteCopy)
     }
 
+    console.log(group?.id)
     const constructNewQuote = () => {
         const quoteCopy = { ...quote }
         console.log(quoteCopy)
@@ -34,9 +41,8 @@ export const EditQuote = () => {
     }
 
     const quoteDelete = (quoteId) => {
-        const quoteCopy = { ...quote }
         deleteQuote(quoteId)
-            .then(history.push(`/groups/${quoteCopy.group.id}`))
+            .then(history.push(`/groups/${group?.id}`))
     }
 
     return (
@@ -48,7 +54,7 @@ export const EditQuote = () => {
                         <div className="control">
                             <textarea
                                 class="textarea"
-                                name="quoteText"
+                                name="quote_text"
                                 placeholder="Enter quote here"
                                 value={quote.quote_text}
                                 onChange={handleControlledInputChange}

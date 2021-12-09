@@ -3,21 +3,26 @@
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    min-width: auto;
     margin: auto;
     border: 1px solid black;
+    background-color:rgb(52, 58, 64);
     margin-bottom: 2em;
     border-radius: 10px;
     padding: 2em;
-    height: 25em;
-    width: 60%;
+    height: auto;
+    width: auto;
+    min-width: auto;
+    max-width: 45%;
 }
 
 .quoteFooter {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
     margin: auto;
+    margin-left: 0;
+    justify-content: left;
+    font-size: 1vw;
 }
 
 .membersContainer {
@@ -41,3 +46,10 @@
     justify-content: center;
     margin: auto;
 }
+
+.quoter {
+    display: flex;
+    justify-content: right;
+    margin-right: 10%;
+}
+

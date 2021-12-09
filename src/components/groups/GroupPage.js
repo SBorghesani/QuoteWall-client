@@ -9,6 +9,7 @@ export const GroupPage = () => {
     const [quotes, setQuotes] = useState([])
     const [group, setGroup] = useState({})
     const [currentUser, setCurrentUser] = useState({})
+    const [contextToggle, setContextToggle] = useState(false)
     const { groupId } = useParams()
     const history = useHistory()
     const user = localStorage.getItem('quotewall_user')
@@ -17,7 +18,7 @@ export const GroupPage = () => {
         getQuotesByGroup(groupId)
             .then(res => setQuotes(res))
     },
-        [])
+        [quotes.length])
 
     useEffect(() => {
         getGroup(groupId)
@@ -40,6 +41,14 @@ export const GroupPage = () => {
         }
     }
 
+    const contextHandler = () => {
+        if (contextToggle) {
+            setContextToggle(false)
+        } else {
+            setContextToggle(true)
+        }
+    }
+
 
     return (
         <>
@@ -47,17 +56,17 @@ export const GroupPage = () => {
             <button
                 onClick={() => history.push(`/groups/${groupId}/newquote`)}
             >New Quote</button>
-                <section className="membersContainer">
-                    <div className="members">
-                        <h3> Group Members </h3>
-                        <ul className="membersList"></ul>
-                        {group?.members?.map(member => {
-                            return <>
-                                <li>{member?.username}</li>
-                            </>
-                        })}
-                    </div>
-                </section>
+            <section className="membersContainer">
+                <div className="members">
+                    <h3> Group Members </h3>
+                    <ul className="membersList"></ul>
+                    {group?.members?.map(member => {
+                        return <>
+                            <li>{member?.username}</li>
+                        </>
+                    })}
+                </div>
+            </section>
             <section className="groupView">
                 <section className="quotesDisplay">
                     {quotes?.map(quote => {
@@ -65,13 +74,31 @@ export const GroupPage = () => {
                             <section className="quoteContainer">
                                 <div className="quoteHeader">
                                     <h3>{`"${quote.quote_text}"`}</h3>
-                                    <h4 className="quoteHeader quoter">{`- ${quote.quoter}`}</h4>
+                                    <div className="quoteHeader quoter">
+                                        <h4>{`- ${quote.quoter}`}</h4>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button onClick={() => {
+                                        contextHandler()
+                                    }}>
+                                        View Context
+                                    </button>
+                                </div>
+                                <div>
+                                    {
+                                        (contextToggle)
+                                            ? quote.context
+                                            : ""
+                                    }
                                 </div>
                                 <div className="quoteFooter">
-                                    <div>
+                                    {/* <div className="quoteFooter user"> */}
                                         Posted by: {quote.user.username}<br />
+                                    {/* </div> */}
+                                    {/* <div className="quoteFooter group"> */}
                                         Posted in: {quote.group.name}
-                                    </div>
+                                    {/* </div> */}
                                 </div>
                                 {
                                     verifyUser(quote.user.id)
