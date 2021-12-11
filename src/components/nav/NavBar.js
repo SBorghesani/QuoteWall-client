@@ -8,7 +8,7 @@ export const NavBar = () => {
     return (
         <ul className="navbar">
             <li className="navbar__item">
-                <Link className="navbar__link" to="/"><img className="navbar__logo" alt="logo"/>Home</Link>
+                <Link className="navbar__link" to="/">Home</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/groups">Browse Groups</Link>
@@ -21,13 +21,13 @@ export const NavBar = () => {
             </li>
             {
                 (localStorage.getItem("quotewall_user") !== null) ?
-                    <li className="nav-item">
-                        <button className="nav-link fakeLink"
+                    <li className="navbar__item">
+                        <Link className="navbar__link" to="/"
                             onClick={() => {
                                 localStorage.removeItem("quotewall_user")
-                                history.push({ pathname: "/" })
+                                history.push("/login")
                             }}
-                        >Logout</button>
+                        >Logout</Link>
                     </li> :
                     <>
                         <li className="nav-item">

@@ -31,6 +31,9 @@ export const ApplicationViews = () => {
             <Route exact path="/groups/new">
                 <GroupForm/>
             </Route>
+            <Route exact path="/mygroups">
+                <GroupFeed/>
+            </Route>
         </main>
     </>
 }

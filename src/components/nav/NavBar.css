@@ -1,4 +1,12 @@
 .navbar {
     display: flex;
     justify-content: space-between;
+    margin: auto;
 }
+
+.navbar__link,
+.navbar li {
+    list-style-type: none;
+    color: rgb(206, 212, 218);
+}
+
