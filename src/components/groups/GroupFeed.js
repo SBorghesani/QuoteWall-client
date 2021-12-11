@@ -74,6 +74,10 @@ export const GroupFeed = () => {
                                                 history.push(`/groups/${group.id}`)
                                             }}>View</button>
                                     </>
+                                    : (group.private) ?
+                                    <button className="requestJoinButton"
+                                        onClick={() => joinGroup(group.id).then(renderComponent)}
+                                    >Request to Join</button>
                                     : <button className="joinButton"
                                         onClick={() => joinGroup(group.id).then(renderComponent)}
                                     >Join</button>

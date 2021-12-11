@@ -57,7 +57,9 @@ export const GroupForm = () => {
                             <input type="checkbox" name="private" required autoFocus className="input"
                                 proptype="varchar"
                                 value={newGroup.private}
-                                onClick={togglePrivacy}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    togglePrivacy(true)}}
                             />
                         </div>
                     </div>

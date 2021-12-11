@@ -1,66 +1,37 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { getGroup, getQuotesByGroup, getCurrentUser } from "./GroupProvider.js"
 import { useParams } from "react-router"
+import { adminLeaveGroup, getGroup } from './GroupProvider.js'
 import '../quotes/Quotes.css'
-import { AdminGroupPage } from "./AdminGroupPage.js"
 
-
-export const GroupPage = () => {
-    const [quotes, setQuotes] = useState([])
+export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, contextToggle }) => {
     const [group, setGroup] = useState({})
-    const [currentUser, setCurrentUser] = useState({})
-    const [contextToggle, setContextToggle] = useState(0)
-    const { groupId } = useParams()
     const history = useHistory()
-    const user = localStorage.getItem('quotewall_user')
 
-    useEffect(() => {
-        getQuotesByGroup(groupId)
-            .then(res => setQuotes(res))
-    },
-        [quotes.length])
+
+    const removeUser = (groupId, userId) => {
+        adminLeaveGroup(groupId, userId)
+    }
+
 
     useEffect(() => {
         getGroup(groupId)
             .then(res => setGroup(res))
     },
         {})
-        console.log(group)
 
-    useEffect(() => {
-        getCurrentUser()
-            .then(res => setCurrentUser(res))
-    },
-        {})
-
-    //checks current user against quotes to determine if user can edit
-    const verifyUser = (userId) => {
-        if (currentUser.id === userId) {
-            return true
-        } else {
-            return false
-        }
+    const renderComponent = (groupId) => {
+        getGroup(groupId)
+            .then(res => {
+                setGroup(res)
+            })
     }
-
-    const contextHandler = (quote) => {
-        if (contextToggle !== quote.id) {
-            setContextToggle(quote.id)
-        } else {
-            setContextToggle(0)
-        }
-    }
-
 
     return (
         <>
-            {group?.admin?.id === currentUser.id ? 
-                <AdminGroupPage groupId={groupId} quotes={quotes} verifyUser={verifyUser}
-                    contextHandler={contextHandler} contextToggle={contextToggle}/>
-                : <>
             <h2>{group?.name} Feed</h2>
             <button
-            onClick={() => history.push(`/groups/${groupId}/newquote`)}
+                onClick={() => history.push(`/groups/${groupId}/newquote`)}
             >New Quote</button>
             <section className="membersContainer">
                 <div className="members">
@@ -68,7 +39,13 @@ export const GroupPage = () => {
                     <ul className="membersList"></ul>
                     {group?.members?.map(member => {
                         return <>
-                            <li>{member?.username}</li>
+                            <li>{member?.username}
+                                <Link onClick={(e) => {
+                                    e.preventDefault()
+                                    removeUser(group?.id, member.id)
+                                        .then(renderComponent(group?.id))
+                                }}
+                                >[X]</Link> </li>
                         </>
                     })}
                 </div>
@@ -123,9 +100,6 @@ export const GroupPage = () => {
                     })}
                 </section>
             </section>
-            </>
-        }
         </>
     )
 }
-                
