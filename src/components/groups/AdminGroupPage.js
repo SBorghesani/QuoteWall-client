@@ -2,17 +2,12 @@ import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { useParams } from "react-router"
 import { adminLeaveGroup, getGroup } from './GroupProvider.js'
+import { deleteQuote, getQuotes } from '../quotes/QuoteProvider.js'
 import '../quotes/Quotes.css'
 
 export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, contextToggle }) => {
     const [group, setGroup] = useState({})
     const history = useHistory()
-
-
-    const removeUser = (groupId, userId) => {
-        adminLeaveGroup(groupId, userId)
-    }
-
 
     useEffect(() => {
         getGroup(groupId)
@@ -20,7 +15,7 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
     },
         {})
 
-    const renderComponent = (groupId) => {
+    const renderComponent = () => {
         getGroup(groupId)
             .then(res => {
                 setGroup(res)
@@ -42,8 +37,8 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
                             <li>{member?.username}
                                 <Link onClick={(e) => {
                                     e.preventDefault()
-                                    removeUser(group?.id, member.id)
-                                        .then(renderComponent(group?.id))
+                                    adminLeaveGroup(group.id, member.id)
+                                        .then(renderComponent)
                                 }}
                                 >[X]</Link> </li>
                         </>
@@ -77,8 +72,6 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
                                     }
                                 </div>
                                 <section className="quoteFooter">
-                                    {/* <div className="quoteFooterInfo"> */}
-                                    {/* <div className="quoteFooter user"> */}
                                     <div className="quoteEdit">
                                         {
                                             verifyUser(quote.user.id)
@@ -87,13 +80,17 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
                                                 }}>⚙️</Link>
                                                 : ""
                                         }
+                                        <Link onClick={(e) => {
+                                            e.preventDefault()
+                                            deleteQuote(quote.id)
+                                                .then(renderComponent)
+                                        }}
+                                        >🗑️</Link>
                                     </div>
+                                    <div>
                                         Posted by: {quote.user.username}<br />
-                                    {/* </div> */}
-                                    {/* <div className="quoteFooter group"> */}
                                         Posted in: {quote.group.name}
-                                    {/* </div> */}
-                                    {/* </div> */}
+                                    </div>
                                 </section>
                             </section>
                         </>

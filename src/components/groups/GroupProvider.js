@@ -97,3 +97,12 @@ export const getCurrentUser = () => {
         .then(res => res.json())
 }
 
+export const requestToJoin = (groupId) => {
+    return fetch(`http://localhost:8000/groups/${groupId}/join?userrequest`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
+        },
+    })
+}

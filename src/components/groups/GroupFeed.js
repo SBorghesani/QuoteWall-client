@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { getAllGroups, getUserGroups, joinGroup, leaveGroup } from "./GroupProvider.js"
+import { getAllGroups, getUserGroups, joinGroup, leaveGroup, requestToJoin } from "./GroupProvider.js"
 import { useParams } from "react-router"
 import './Groups.css'
 
@@ -76,7 +76,7 @@ export const GroupFeed = () => {
                                     </>
                                     : (group.private) ?
                                     <button className="requestJoinButton"
-                                        onClick={() => joinGroup(group.id).then(renderComponent)}
+                                        onClick={() => requestToJoin(group.id).then(renderComponent)}
                                     >Request to Join</button>
                                     : <button className="joinButton"
                                         onClick={() => joinGroup(group.id).then(renderComponent)}
