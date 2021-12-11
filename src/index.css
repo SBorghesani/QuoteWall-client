@@ -25,3 +25,7 @@ h2 {
   display: flex;
   justify-content: center;
 }
+
+#logo {
+  margin-left: 2rem;
+}

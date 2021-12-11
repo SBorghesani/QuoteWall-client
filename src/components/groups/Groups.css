@@ -19,6 +19,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: right;
+    margin: auto;
+    margin-right: 1rem;
 }
 
 .members {
@@ -36,7 +38,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
-    margin-bottom: 100%;
+    /* margin-bottom: 100%; */
     justify-content: center;
     margin: auto;
 }

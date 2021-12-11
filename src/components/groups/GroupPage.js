@@ -9,7 +9,7 @@ export const GroupPage = () => {
     const [quotes, setQuotes] = useState([])
     const [group, setGroup] = useState({})
     const [currentUser, setCurrentUser] = useState({})
-    const [contextToggle, setContextToggle] = useState(false)
+    const [contextToggle, setContextToggle] = useState(0)
     const { groupId } = useParams()
     const history = useHistory()
     const user = localStorage.getItem('quotewall_user')
@@ -41,11 +41,11 @@ export const GroupPage = () => {
         }
     }
 
-    const contextHandler = () => {
-        if (contextToggle) {
-            setContextToggle(false)
+    const contextHandler = (quote) => {
+        if (contextToggle !== quote.id) {
+            setContextToggle(quote.id)
         } else {
-            setContextToggle(true)
+            setContextToggle(0)
         }
     }
 
@@ -79,35 +79,39 @@ export const GroupPage = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <button onClick={() => {
-                                        contextHandler()
+                                    <Link className="contextLink" onClick={(e) => {
+                                        e.preventDefault()
+                                        contextHandler(quote)
                                     }}>
                                         View Context
-                                    </button>
+                                    </Link>
                                 </div>
-                                <div>
+                                <div className="contextDrop">
                                     {
-                                        (contextToggle)
+                                        (contextToggle === quote.id)
                                             ? quote.context
                                             : ""
                                     }
                                 </div>
-                                <div className="quoteFooter">
+                                <section className="quoteFooter">
+                                    {/* <div className="quoteFooterInfo"> */}
                                     {/* <div className="quoteFooter user"> */}
+                                    <div className="quoteEdit">
+                                        {
+                                            verifyUser(quote.user.id)
+                                                ? <Link to={`/quotes/${quote.id}/edit`} onClick={(e) => {
+                                                    // e.preventDefault()
+                                                }}>⚙️</Link>
+                                                : ""
+                                        }
+                                    </div>
                                         Posted by: {quote.user.username}<br />
                                     {/* </div> */}
                                     {/* <div className="quoteFooter group"> */}
                                         Posted in: {quote.group.name}
                                     {/* </div> */}
-                                </div>
-                                {
-                                    verifyUser(quote.user.id)
-                                        ? <><button onClick={() => {
-                                            history.push(`/quotes/${quote.id}/edit`)
-                                        }}>Edit</button></>
-                                        : ""
-
-                                }
+                                    {/* </div> */}
+                                </section>
                             </section>
                         </>
                     })}

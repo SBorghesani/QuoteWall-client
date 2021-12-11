@@ -14,8 +14,8 @@ export const QuoteForm = () => {
     useEffect(() => {
         getGroup(groupId)
             .then(res => setGroup(res))
-    }, 
-    [])
+    },
+        [])
 
     const handleControlledInputChange = (event) => {
         /*
@@ -35,16 +35,16 @@ export const QuoteForm = () => {
             .then(history.push(`/groups/${groupId}`))
     }
 
-    
+
     return (
         <form className="quoteForm">
             <div className="panel-block">
                 <form style={{ width: "100%" }}>
                     <div className="field">
-                        <label htmlFor="quoteText" className="quoteText">Quote: </label>
+                        <label htmlFor="quoteText" className="formQuoteText">Quote: </label>
                         <div className="control">
-                            <textarea 
-                                class="textarea" 
+                            <textarea
+                                class="textarea"
                                 name="quoteText"
                                 placeholder="Enter quote here"
                                 value={newQuote.quoteText}
@@ -53,43 +53,41 @@ export const QuoteForm = () => {
                         </div>
                     </div>
                     <div className="field">
-                        <label htmlFor="quoter" className="quoter">Who are you quoting: </label>
+                        <div className="field">
+                            <label htmlFor="context" className="formContext">Provide Context about quote: </label>
+                            <div className="control">
+                                <textarea
+                                    class="textarea"
+                                    name="context"
+                                    placeholder="Provide Context"
+                                    value={newQuote.context}
+                                    onChange={handleControlledInputChange}
+                                ></textarea>
+                            </div>
+                        </div>
+                        <label htmlFor="quoter" className="formQuoter">Who are you quoting: </label>
                         <div className="control">
-                            <input type="text" name="quoter" required autoFocus className="input"
+                            <input type="text" name="quoter" className="quoterInput" required autoFocus className="input"
                                 proptype="varchar"
                                 placeholder="Who are you quoting?"
                                 value={newQuote.quoter}
                                 onChange={handleControlledInputChange}
                             />
                         </div>
-                    </div>     
-                    <div className="field">
-                        <label htmlFor="context" className="context">Provide Context about quote: </label>
-                        <div className="control">
-                            <textarea 
-                                class="textarea" 
-                                name="context"
-                                placeholder="Provide Context"
-                                value={newQuote.context}
-                                onChange={handleControlledInputChange}
-                            ></textarea>
-                        </div>
-                    </div>                 
-                    <div className="field">
-                        <div className="control">
-                            <button type="submit"
-                                onClick={evt => {
-                                    evt.preventDefault()
-                                    constructNewQuote()
-                                }}
-                                className="button is-link">
-                                {"Save"}
-                            </button>
-                        </div>
+                    </div>
+                    <div className="quoteSubmit">
+                        <button type="submit"
+                            onClick={evt => {
+                                evt.preventDefault()
+                                constructNewQuote()
+                            }}
+                            className="button is-link">
+                            {"Save"}
+                        </button>
                     </div>
                 </form>
             </div>
         </form>
     )
-    
+
 }

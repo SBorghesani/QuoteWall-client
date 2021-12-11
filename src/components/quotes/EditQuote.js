@@ -30,7 +30,6 @@ export const EditQuote = () => {
         setQuote(quoteCopy)
     }
 
-    console.log(group?.id)
     const constructNewQuote = () => {
         const quoteCopy = { ...quote }
         console.log(quoteCopy)

@@ -1,6 +1,7 @@
 .navbar {
     display: flex;
     justify-content: space-between;
+    margin: auto;
 }
 
 .navbar__link,
