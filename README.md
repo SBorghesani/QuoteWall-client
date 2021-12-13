@@ -1,5 +1,8 @@
 # QuoteWall
 
+![image](https://user-images.githubusercontent.com/83084854/145892637-de74ab8c-c7d9-44aa-ab03-22f1e4872815.png)
+
+
 Quotewall is an app where users can share their favorite quotes. Whether it be from a tv show, movie, book, or even quotes amongst your friends, QuoteWall lets you 
 easily remember and explore memorable quotes.
 ## Local Setup
