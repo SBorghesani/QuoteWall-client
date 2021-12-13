@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { getAllGroups, getUserGroups, joinGroup, leaveGroup, requestToJoin } from "./GroupProvider.js"
+import { getAllGroups, getUserGroups, joinGroup, leaveGroup, requestToJoin, getCurrentUser } from "./GroupProvider.js"
 import { useParams } from "react-router"
 import './Groups.css'
 
@@ -8,6 +8,7 @@ import './Groups.css'
 export const GroupFeed = () => {
     const [groups, setGroups] = useState([])
     const [userGroups, setUserGroups] = useState([])
+    const [currentUser, setCurrentUser] = useState({})
     const history = useHistory()
     const pathname = window.location.pathname
 
@@ -29,6 +30,12 @@ export const GroupFeed = () => {
     },
         [])
 
+    useEffect(() => {
+        getCurrentUser()
+            .then(res => setCurrentUser(res))
+    },
+        {})
+
     //returns true if current user is joined to group
     const isUserMember = (groupId) => {
         const groupArray = []
@@ -38,6 +45,22 @@ export const GroupFeed = () => {
             }
         }
         if (groupArray[0]) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+
+    //returns true if user has requested to join
+    const userRequestSent = (group) => {
+        const userArray = []
+        for (const request of group.requests) {
+            if (request.id === currentUser.id) {
+                userArray.push(request.id)
+            }
+        }
+        if (userArray[0]) {
             return true
         } else {
             return false
@@ -67,7 +90,11 @@ export const GroupFeed = () => {
                                 isUserMember(group.id)
                                     ? <>
                                         <button className="leaveButton"
-                                            onClick={() => leaveGroup(group.id).then(renderComponent)}
+                                            onClick={() => {
+                                                (currentUser.id === group.admin.id)
+                                                    ? window.alert("You cannot leave a group that you administrate.")
+                                                    : leaveGroup(group.id).then(renderComponent)
+                                            }}
                                         >Leave</button>
                                         <button className="viewButton"
                                             onClick={() => {
@@ -75,12 +102,14 @@ export const GroupFeed = () => {
                                             }}>View</button>
                                     </>
                                     : (group.private) ?
-                                    <button className="requestJoinButton"
-                                        onClick={() => requestToJoin(group.id).then(renderComponent)}
-                                    >Request to Join</button>
-                                    : <button className="joinButton"
-                                        onClick={() => joinGroup(group.id).then(renderComponent)}
-                                    >Join</button>
+                                        !(userRequestSent(group)) ?
+                                            <button className="requestJoinButton"
+                                                onClick={() => requestToJoin(group.id).then(renderComponent)}
+                                            >Request to Join</button>
+                                            : "Request Sent"
+                                        : <button className="joinButton"
+                                            onClick={() => joinGroup(group.id).then(renderComponent)}
+                                        >Join</button>
                             }
                         </section>
                     </>
