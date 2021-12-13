@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { useParams } from "react-router"
-import { adminLeaveGroup, getGroup } from './GroupProvider.js'
+import { adminLeaveGroup, getGroup, denyRequest, adminJoinGroup } from './GroupProvider.js'
 import { deleteQuote, getQuotes } from '../quotes/QuoteProvider.js'
 import '../quotes/Quotes.css'
 
@@ -41,6 +41,29 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
                                         .then(renderComponent)
                                 }}
                                 >[X]</Link> </li>
+                        </>
+                    })}
+                </div>
+                <div className="members">
+                    <h3> Requests </h3>
+                    <ul className="membersList"></ul>
+                    {group?.requests?.map(request => {
+                        return <>
+                            <li>{request?.username}
+                                <Link onClick={(e) => {
+                                    e.preventDefault()
+                                    denyRequest(group.id, request.id)
+                                        .then(renderComponent)
+                                }}
+                                >❌</Link>
+                                <Link onClick={(e) => {
+                                    e.preventDefault()
+                                    adminJoinGroup(group.id, request.id)
+                                        .then(denyRequest(group.id, request.id))
+                                        .then(renderComponent)
+                                }}
+                                >✅</Link>
+                            </li>
                         </>
                     })}
                 </div>

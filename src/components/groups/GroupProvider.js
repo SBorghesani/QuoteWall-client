@@ -106,3 +106,15 @@ export const requestToJoin = (groupId) => {
         },
     })
 }
+
+export const denyRequest = (groupId, userId) => {
+    return fetch(`https://quotewall.herokuapp.com/groups/${groupId}/join?userrequest=${userId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
+        },
+    })
+}
+
+
