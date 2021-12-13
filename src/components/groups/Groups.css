@@ -18,9 +18,12 @@
 .membersContainer {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: right;
+    border-left: 1px solid rgb(52, 58, 64);
     margin: auto;
     margin-right: 1rem;
+    padding-left: 2rem;
 }
 
 .members {

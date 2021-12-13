@@ -72,6 +72,8 @@ export const GroupFeed = () => {
         getUserGroups()
             .then(res => {
                 setUserGroups(res)
+                getAllGroups()
+                    .then(res => setGroups(res))
             })
     }
 

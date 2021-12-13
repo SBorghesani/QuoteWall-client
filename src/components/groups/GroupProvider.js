@@ -1,5 +1,5 @@
 export const getGroup = (groupId) => {
-    return fetch(`http://localhost:8000/groups/${groupId}`, {
+    return fetch(`https://quotewall.herokuapp.com/groups/${groupId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
         }
@@ -8,7 +8,7 @@ export const getGroup = (groupId) => {
 }
 
 export const getQuotesByGroup = (groupId) => {
-    return fetch(`http://localhost:8000/quotes?group=${groupId}`,
+    return fetch(`https://quotewall.herokuapp.com/quotes?group=${groupId}`,
         {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
@@ -18,7 +18,7 @@ export const getQuotesByGroup = (groupId) => {
 }
 
 export const addNewGroup = (groupObject) => {
-    return fetch(`http://localhost:8000/groups`, {
+    return fetch(`https://quotewall.herokuapp.com/groups`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const addNewGroup = (groupObject) => {
 }
 
 export const getUserGroups = () => {
-    return fetch(`http://localhost:8000/groups?mygroups`, {
+    return fetch(`https://quotewall.herokuapp.com/groups?mygroups`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
         }
@@ -38,7 +38,7 @@ export const getUserGroups = () => {
 }
 
 export const getAllGroups = () => {
-    return fetch(`http://localhost:8000/groups`, {
+    return fetch(`https://quotewall.herokuapp.com/groups`, {
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
@@ -48,7 +48,7 @@ export const getAllGroups = () => {
 }
 
 export const joinGroup = (groupId) => {
-    return fetch(`http://localhost:8000/groups/${groupId}/join`, {
+    return fetch(`https://quotewall.herokuapp.com/groups/${groupId}/join`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export const joinGroup = (groupId) => {
 }
 
 export const leaveGroup = (groupId) => {
-    return fetch(`http://localhost:8000/groups/${groupId}/join`, {
+    return fetch(`https://quotewall.herokuapp.com/groups/${groupId}/join`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export const leaveGroup = (groupId) => {
 }
 
 export const adminJoinGroup = (groupId, userId) => {
-    return fetch(`http://localhost:8000/groups/${groupId}/join?groupuser=${userId}`, {
+    return fetch(`https://quotewall.herokuapp.com/groups/${groupId}/join?groupuser=${userId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export const adminJoinGroup = (groupId, userId) => {
 }
 
 export const adminLeaveGroup = (groupId, userId) => {
-    return fetch(`http://localhost:8000/groups/${groupId}/join?groupuser=${userId}`, {
+    return fetch(`https://quotewall.herokuapp.com/groups/${groupId}/join?groupuser=${userId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -88,7 +88,7 @@ export const adminLeaveGroup = (groupId, userId) => {
 }
 
 export const getCurrentUser = () => {
-    return fetch(`http://localhost:8000/users`, {
+    return fetch(`https://quotewall.herokuapp.com/users`, {
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
@@ -98,7 +98,7 @@ export const getCurrentUser = () => {
 }
 
 export const requestToJoin = (groupId) => {
-    return fetch(`http://localhost:8000/groups/${groupId}/join?userrequest`, {
+    return fetch(`https://quotewall.herokuapp.com/groups/${groupId}/join?userrequest`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -106,3 +106,15 @@ export const requestToJoin = (groupId) => {
         },
     })
 }
+
+export const denyRequest = (groupId, userId) => {
+    return fetch(`https://quotewall.herokuapp.com/groups/${groupId}/join?userrequest=${userId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
+        },
+    })
+}
+
+

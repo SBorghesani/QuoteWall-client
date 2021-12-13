@@ -1,5 +1,5 @@
 export const deleteQuote = (id) => {
-    return fetch(`http://127.0.0.1:8000/quotes/${id}`,
+    return fetch(`https://quotewall.herokuapp.com/quotes/${id}`,
         {
             method: "DELETE",
             headers: {
@@ -9,7 +9,7 @@ export const deleteQuote = (id) => {
 }
 
 export const getQuote = (id) => {
-    return fetch(`http://localhost:8000/quotes/${id}`, {
+    return fetch(`https://quotewall.herokuapp.com/quotes/${id}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
         }
@@ -18,7 +18,7 @@ export const getQuote = (id) => {
 }
 
 export const addNewQuote = (quoteObject) => {
-    return fetch(`http://localhost:8000/quotes`, {
+    return fetch(`https://quotewall.herokuapp.com/quotes`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const addNewQuote = (quoteObject) => {
 }
 
 export const updateQuote = (updated) => {
-    return fetch(`http://localhost:8000/quotes/${updated.id}`, {
+    return fetch(`https://quotewall.herokuapp.com/quotes/${updated.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export const updateQuote = (updated) => {
 }
 
 export const getQuotes = () => {
-    return fetch(`http://localhost:8000/quotes`,
+    return fetch(`https://quotewall.herokuapp.com/quotes`,
         {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
@@ -50,7 +50,7 @@ export const getQuotes = () => {
 }
 
 export const getQuotesByGroup = (groupId) => {
-    return fetch(`http://localhost:8000/quotes?group=${groupId}`,
+    return fetch(`https://quotewall.herokuapp.com/quotes?group=${groupId}`,
         {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
@@ -60,7 +60,7 @@ export const getQuotesByGroup = (groupId) => {
 }
 
 export const getMyQuotes = () => {
-    return fetch(`http://localhost:8000/quotes?myquotes`,
+    return fetch(`https://quotewall.herokuapp.com/quotes?myquotes`,
         {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
@@ -69,7 +69,7 @@ export const getMyQuotes = () => {
 }
 
 export const getSubscribedQuotes = () => {
-    return fetch(`http://127.0.0.1:8000/quotes?myfeed`,
+    return fetch(`https://quotewall.herokuapp.com/quotes?myfeed`,
         {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
