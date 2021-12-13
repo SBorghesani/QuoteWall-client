@@ -67,6 +67,26 @@ export const leaveGroup = (groupId) => {
     })
 }
 
+export const adminJoinGroup = (groupId, userId) => {
+    return fetch(`http://localhost:8000/groups/${groupId}/join?groupuser=${userId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
+        },
+    })
+}
+
+export const adminLeaveGroup = (groupId, userId) => {
+    return fetch(`http://localhost:8000/groups/${groupId}/join?groupuser=${userId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
+        },
+    })
+}
+
 export const getCurrentUser = () => {
     return fetch(`http://localhost:8000/users`, {
         headers: {
@@ -77,3 +97,12 @@ export const getCurrentUser = () => {
         .then(res => res.json())
 }
 
+export const requestToJoin = (groupId) => {
+    return fetch(`http://localhost:8000/groups/${groupId}/join?userrequest`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
+        },
+    })
+}
