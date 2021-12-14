@@ -19,7 +19,7 @@ export const GroupPage = () => {
         getQuotesByGroup(groupId)
             .then(res => setQuotes(res))
     },
-        [quotes.length])
+        [])
 
     useEffect(() => {
         getGroup(groupId)
