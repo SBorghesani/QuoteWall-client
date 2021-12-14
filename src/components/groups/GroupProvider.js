@@ -117,7 +117,6 @@ export const denyRequest = (groupId, userId) => {
     })
 }
 
-
 export const searchGroups= (q, searchTerm) => {
     return fetch(`https://quotewall.herokuapp.com/groups?${q}=${searchTerm}`, {
         headers: {
@@ -128,7 +127,7 @@ export const searchGroups= (q, searchTerm) => {
 }
 
 export const searchQuotes= (groupId, q, searchTerm) => {
-    return fetch(`https://quotewall.herokuapp.com/quotes?group=${groupId}?${q}=${searchTerm}`, {
+    return fetch(`https://quotewall.herokuapp.com/quotes?group=${groupId}&${q}=${searchTerm}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("quotewall_user")}`
         }
