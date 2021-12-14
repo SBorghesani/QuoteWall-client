@@ -31,7 +31,7 @@ export const QuoteFeed = () => {
 
     return (
         <>
-            <h2>Quote Feed</h2>
+            <h2>{(pathname === '/myfeed') ? "My Feed" : "Recent Quotes"} </h2>
             <section className="feedContainer">
                 {(pathname === '/myfeed')
                     ? <section className="groupsContainer">

@@ -5,7 +5,7 @@ import { adminLeaveGroup, getGroup, denyRequest, adminJoinGroup } from './GroupP
 import { deleteQuote, getQuotes } from '../quotes/QuoteProvider.js'
 import '../quotes/Quotes.css'
 
-export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, contextToggle }) => {
+export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, contextToggle, quoteSearch }) => {
     const [group, setGroup] = useState({})
     const history = useHistory()
 
@@ -25,9 +25,13 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
     return (
         <>
             <h2>{group?.name} Feed</h2>
+            <fieldset className="search">
+                <label htmlFor="q">Search</label>
+                <input name="q" type="text" onChange={quoteSearch} />
             <button
                 onClick={() => history.push(`/groups/${groupId}/newquote`)}
             >New Quote</button>
+            </fieldset>
             <section className="membersContainer">
                 <div className="members">
                     <h3> Group Members </h3>

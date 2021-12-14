@@ -117,7 +117,6 @@
 
 .quoter {
     display: flex;
-    justify-content: right;
     margin-right: 10%;
     margin-top: 5%
 }

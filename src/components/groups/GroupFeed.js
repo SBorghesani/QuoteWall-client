@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { getAllGroups, getUserGroups, joinGroup, leaveGroup, requestToJoin, getCurrentUser } from "./GroupProvider.js"
+import { getAllGroups, getUserGroups, joinGroup, leaveGroup, requestToJoin, getCurrentUser, searchGroups } from "./GroupProvider.js"
 import { useParams } from "react-router"
 import './Groups.css'
 
@@ -51,6 +51,10 @@ export const GroupFeed = () => {
         }
     }
 
+    const groupSearch = (event) => {
+        searchGroups(event.target.name, event.target.value).then(res => setGroups(res))
+    }
+
 
     //returns true if user has requested to join
     const userRequestSent = (group) => {
@@ -79,7 +83,11 @@ export const GroupFeed = () => {
 
     return (
         <>
-            <h2>{pathname === '/mygroups' ? 'My Groups:' : 'All Groups:'}</h2>
+            <h2>{pathname === '/mygroups' ? 'My Groups' : 'All Groups'}</h2>
+            <fieldset className="search">
+                <label htmlFor="q">Search</label>
+                <input name="q" type="text" onChange={groupSearch} />
+            </fieldset>
             <section className="groupsDisplay">
                 {groups?.map(group => {
                     return <>

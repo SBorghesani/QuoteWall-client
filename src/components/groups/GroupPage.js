@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { getGroup, getQuotesByGroup, getCurrentUser } from "./GroupProvider.js"
+import { getGroup, getQuotesByGroup, getCurrentUser, searchQuotes } from "./GroupProvider.js"
 import { useParams } from "react-router"
 import '../quotes/Quotes.css'
 import { AdminGroupPage } from "./AdminGroupPage.js"
@@ -43,6 +43,7 @@ export const GroupPage = () => {
         }
     }
 
+    //context dropdown
     const contextHandler = (quote) => {
         if (contextToggle !== quote.id) {
             setContextToggle(quote.id)
@@ -51,17 +52,24 @@ export const GroupPage = () => {
         }
     }
 
+    const quoteSearch = (event) => {
+        searchQuotes(event.target.name, event.target.value).then(res => setQuotes(res))
+    }
 
     return (
         <>
             {group?.admin?.id === currentUser.id ? 
                 <AdminGroupPage groupId={groupId} quotes={quotes} verifyUser={verifyUser}
-                    contextHandler={contextHandler} contextToggle={contextToggle}/>
+                    contextHandler={contextHandler} contextToggle={contextToggle} quoteSearch={quoteSearch}/>
                 : <>
             <h2>{group?.name} Feed</h2>
+            <fieldset className="search">
+                <label htmlFor="q">Search</label>
+                <input name="q" type="text" onChange={quoteSearch} />
             <button
             onClick={() => history.push(`/groups/${groupId}/newquote`)}
             >New Quote</button>
+            </fieldset>
             <section className="membersContainer">
                 <div className="members">
                     <h3> Group Members </h3>
