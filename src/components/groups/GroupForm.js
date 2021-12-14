@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useHistory } from 'react-router-dom'
 import { useParams } from "react-router"
 import { getGroup, addNewGroup } from './GroupProvider.js'
+import './Groups.css'
 
 
 export const GroupForm = () => {

@@ -35,12 +35,12 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
                     {group?.members?.map(member => {
                         return <>
                             <li>{member?.username}
-                                <Link onClick={(e) => {
+                                <Link className="removeMember" onClick={(e) => {
                                     e.preventDefault()
                                     adminLeaveGroup(group.id, member.id)
                                         .then(renderComponent)
                                 }}
-                                >[X]</Link> </li>
+                                >❌</Link> </li>
                         </>
                     })}
                 </div>
@@ -50,13 +50,13 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
                     {group?.requests?.map(request => {
                         return <>
                             <li>{request?.username}
-                                <Link onClick={(e) => {
+                                <Link className="removeMember" onClick={(e) => {
                                     e.preventDefault()
                                     denyRequest(group.id, request.id)
                                         .then(renderComponent)
                                 }}
                                 >❌</Link>
-                                <Link onClick={(e) => {
+                                <Link className="removeMember" onClick={(e) => {
                                     e.preventDefault()
                                     adminJoinGroup(group.id, request.id)
                                         .then(denyRequest(group.id, request.id))
@@ -95,26 +95,26 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
                                     }
                                 </div>
                                 <section className="quoteFooter">
-                                    <div className="quoteEdit">
-                                        {
-                                            verifyUser(quote.user.id)
-                                                ? <Link to={`/quotes/${quote.id}/edit`} onClick={(e) => {
-                                                    // e.preventDefault()
-                                                }}>⚙️</Link>
-                                                : ""
-                                        }
-                                        <Link onClick={(e) => {
-                                            e.preventDefault()
-                                            deleteQuote(quote.id)
-                                                .then(renderComponent)
-                                        }}
-                                        >🗑️</Link>
-                                    </div>
                                     <div>
                                         Posted by: {quote.user.username}<br />
                                         Posted in: {quote.group.name}
                                     </div>
                                 </section>
+                                <div className="quoteEdit">
+                                    {
+                                        verifyUser(quote.user.id)
+                                            ? <Link className="editLink" to={`/quotes/${quote.id}/edit`} onClick={(e) => {
+                                                // e.preventDefault()
+                                            }}>⚙️</Link>
+                                            : ""
+                                    }
+                                    <Link className="editLink" onClick={(e) => {
+                                        e.preventDefault()
+                                        deleteQuote(quote.id)
+                                            .then(renderComponent)
+                                    }}
+                                    >🗑️</Link>
+                                </div>
                             </section>
                         </>
                     })}
