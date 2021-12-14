@@ -53,7 +53,7 @@ export const GroupPage = () => {
     }
 
     const quoteSearch = (event) => {
-        searchQuotes(event.target.name, event.target.value).then(res => setQuotes(res))
+        searchQuotes(groupId, event.target.name, event.target.value).then(res => setQuotes(res))
     }
 
     return (
