@@ -26,7 +26,7 @@ export const GroupPage = () => {
             .then(res => setGroup(res))
     },
         {})
-        console.log(group)
+    console.log(group)
 
     useEffect(() => {
         getCurrentUser()
@@ -58,82 +58,81 @@ export const GroupPage = () => {
 
     return (
         <>
-            {group?.admin?.id === currentUser.id ? 
+            {group?.admin?.id === currentUser.id ?
                 <AdminGroupPage groupId={groupId} quotes={quotes} verifyUser={verifyUser}
-                    contextHandler={contextHandler} contextToggle={contextToggle} quoteSearch={quoteSearch}/>
+                    contextHandler={contextHandler} contextToggle={contextToggle} quoteSearch={quoteSearch} />
                 : <>
-            <h2>{group?.name} Feed</h2>
-            <fieldset className="search">
-                <label htmlFor="q">Search</label>
-                <input name="q" type="text" onChange={quoteSearch} />
-            <button
-            onClick={() => history.push(`/groups/${groupId}/newquote`)}
-            >New Quote</button>
-            </fieldset>
-            <section className="membersContainer">
-                <div className="members">
-                    <h3> Group Members </h3>
-                    <ul className="membersList"></ul>
-                    {group?.members?.map(member => {
-                        return <>
-                            <li>{member?.username}</li>
-                        </>
-                    })}
-                </div>
-            </section>
-            <section className="groupView">
-                <section className="quotesDisplay">
-                    {quotes?.map(quote => {
-                        return <>
-                            <section className="quoteContainer">
-                                <div className="quoteHeader">
-                                    <h3 className="quoteText">{`"${quote.quote_text}"`}</h3>
-                                    <div className="quoteHeader quoter">
-                                        <h4>{`- ${quote.quoter}`}</h4>
-                                    </div>
-                                </div>
-                                <div>
-                                    <Link className="contextLink" onClick={(e) => {
-                                        e.preventDefault()
-                                        contextHandler(quote)
-                                    }}>
-                                        View Context
+                    <h2>{group?.name} Feed</h2>
+                    <fieldset className="search">
+                        <label htmlFor="q">Search</label>
+                        <input name="q" type="text" onChange={quoteSearch} />
+                        <button
+                            onClick={() => history.push(`/groups/${groupId}/newquote`)}
+                        >New Quote</button>
+                    </fieldset>
+                    <section className="membersContainer">
+                        <div className="members">
+                            <h3> Group Members </h3>
+                            <ul className="membersList"></ul>
+                            {group?.members?.map(member => {
+                                return <>
+                                    <li>{member?.username}</li>
+                                </>
+                            })}
+                        </div>
+                    </section>
+                    <section className="groupView">
+                        <section className="quotesDisplay">
+                            {quotes?.map(quote => {
+                                return <>
+                                    <section className="quoteContainer">
+                                        <div className="quoteHeader">
+                                            <h3 className="quoteText">{`"${quote.quote_text}"`}</h3>
+                                            <div className="quoteHeader quoter">
+                                                <h4>{`- ${quote.quoter}`}</h4>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <Link className="contextLink" onClick={(e) => {
+                                                e.preventDefault()
+                                                contextHandler(quote)
+                                            }}>
+                                                View Context
                                     </Link>
-                                </div>
-                                <div className="contextDrop">
-                                    {
-                                        (contextToggle === quote.id)
-                                            ? quote.context
-                                            : ""
-                                    }
-                                </div>
-                                <section className="quoteFooter">
-                                    {/* <div className="quoteFooterInfo"> */}
-                                    {/* <div className="quoteFooter user"> */}
+                                        </div>
+                                        <div className="contextDrop">
+                                            {
+                                                (contextToggle === quote.id)
+                                                    ? quote.context
+                                                    : ""
+                                            }
+                                        </div>
+                                        <section className="quoteFooter">
+                                            {/* <div className="quoteFooterInfo"> */}
+                                            {/* <div className="quoteFooter user"> */}
                                         Posted by: {quote.user.username}<br />
-                                    {/* </div> */}
-                                    {/* <div className="quoteFooter group"> */}
+                                            {/* </div> */}
+                                            {/* <div className="quoteFooter group"> */}
                                         Posted in: {quote.group.name}
-                                    {/* </div> */}
-                                    {/* </div> */}
-                                </section>
-                                <div className="quoteEdit">
-                                        {
-                                            verifyUser(quote.user.id)
-                                                ? <Link to={`/quotes/${quote.id}/edit`} onClick={(e) => {
-                                                    // e.preventDefault()
-                                                }}>⚙️</Link>
-                                                : ""
-                                        }
-                                    </div>
-                            </section>
-                        </>
-                    })}
-                </section>
-            </section>
-            </>
-        }
+                                            {/* </div> */}
+                                            {/* </div> */}
+                                        </section>
+                                        <div className="quoteEdit">
+                                            {
+                                                verifyUser(quote.user.id)
+                                                    ? <Link to={`/quotes/${quote.id}/edit`} onClick={(e) => {
+                                                        // e.preventDefault()
+                                                    }}>⚙️</Link>
+                                                    : ""
+                                            }
+                                        </div>
+                                    </section>
+                                </>
+                            })}
+                        </section>
+                    </section>
+                </>
+            }
         </>
     )
 }
-                
