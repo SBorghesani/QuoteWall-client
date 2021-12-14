@@ -28,9 +28,9 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
             <fieldset className="search">
                 <label htmlFor="q">Search</label>
                 <input name="q" type="text" onChange={quoteSearch} />
-            <button
-                onClick={() => history.push(`/groups/${groupId}/newquote`)}
-            >New Quote</button>
+                <button
+                    onClick={() => history.push(`/groups/${groupId}/newquote`)}
+                >New Quote</button>
             </fieldset>
             <section className="membersContainer">
                 <div className="members">
