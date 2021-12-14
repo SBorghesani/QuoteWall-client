@@ -1,10 +1,35 @@
+.editLink {
+    margin: 1rem
+}
+
+.members li {
+    list-style-type: none;
+}
+
 .contextLink {
     color: rgb(206, 212, 218);
+}
+
+.myGroupList {
+    color: rgb(222, 226, 230);
+  }
+
+.quoteText {
+    font-size: 4vw;
+}
+
+.quoteHeader {
+    font-size: 4vw;
 }
 
 .contextDrop {
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.removeMember {
+    margin-left: .25rem;
+    text-decoration: none;
 }
 
 .quoteContainer {
@@ -45,11 +70,27 @@
     float: right;
 }
 
+.groupsContainer {
+    float: right;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: right;
+    border-left: 1px solid rgb(52, 58, 64);
+    margin: auto;
+    margin-right: 1rem;
+    padding-left: 2rem;
+}
+
+.groupList {
+    justify-content: right;
+}
+
 .groupView {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
-    margin-bottom: 100%;
+    /* margin-bottom: 100%; */
     justify-content: center;
     margin: auto;
 }
@@ -57,6 +98,16 @@
 .quotesView {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin: auto;
+}
+
+.myQuotesView {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    /* margin-bottom: 100%; */
     justify-content: center;
     margin: auto;
 }

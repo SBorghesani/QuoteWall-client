@@ -90,7 +90,7 @@ export const GroupFeed = () => {
                             </div>
                             {
                                 isUserMember(group.id)
-                                    ? <>
+                                    ? <div className="buttonDisplay">
                                         <button className="leaveButton"
                                             onClick={() => {
                                                 (currentUser.id === group.admin.id)
@@ -102,7 +102,7 @@ export const GroupFeed = () => {
                                             onClick={() => {
                                                 history.push(`/groups/${group.id}`)
                                             }}>View</button>
-                                    </>
+                                    </div>
                                     : (group.private) ?
                                         !(userRequestSent(group)) ?
                                             <button className="requestJoinButton"

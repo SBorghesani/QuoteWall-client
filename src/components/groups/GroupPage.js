@@ -79,7 +79,7 @@ export const GroupPage = () => {
                         return <>
                             <section className="quoteContainer">
                                 <div className="quoteHeader">
-                                    <h3>{`"${quote.quote_text}"`}</h3>
+                                    <h3 className="quoteText">{`"${quote.quote_text}"`}</h3>
                                     <div className="quoteHeader quoter">
                                         <h4>{`- ${quote.quoter}`}</h4>
                                     </div>
@@ -102,7 +102,14 @@ export const GroupPage = () => {
                                 <section className="quoteFooter">
                                     {/* <div className="quoteFooterInfo"> */}
                                     {/* <div className="quoteFooter user"> */}
-                                    <div className="quoteEdit">
+                                        Posted by: {quote.user.username}<br />
+                                    {/* </div> */}
+                                    {/* <div className="quoteFooter group"> */}
+                                        Posted in: {quote.group.name}
+                                    {/* </div> */}
+                                    {/* </div> */}
+                                </section>
+                                <div className="quoteEdit">
                                         {
                                             verifyUser(quote.user.id)
                                                 ? <Link to={`/quotes/${quote.id}/edit`} onClick={(e) => {
@@ -111,13 +118,6 @@ export const GroupPage = () => {
                                                 : ""
                                         }
                                     </div>
-                                        Posted by: {quote.user.username}<br />
-                                    {/* </div> */}
-                                    {/* <div className="quoteFooter group"> */}
-                                        Posted in: {quote.group.name}
-                                    {/* </div> */}
-                                    {/* </div> */}
-                                </section>
                             </section>
                         </>
                     })}
