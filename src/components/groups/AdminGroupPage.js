@@ -113,7 +113,7 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
                                             : ""
                                     }
                                     <Link className="editLink" onClick={(e) => {
-                                        e.preventDefault()
+                                        // e.preventDefault()
                                         deleteQuote(quote.id)
                                             .then(renderComponent)
                                     }}
