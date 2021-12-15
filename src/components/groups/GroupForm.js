@@ -55,11 +55,10 @@ export const GroupForm = () => {
                     <div className="field">
                         <label htmlFor="setPrivate" className="setPrivate">Is this a private group? </label>
                         <div className="control">
-                            <input type="checkbox" name="private" required autoFocus className="input"
+                            <input type="checkbox" name="private"  className="input"
                                 proptype="varchar"
                                 value={newGroup.private}
                                 onChange={(e) => {
-                                    e.preventDefault()
                                     togglePrivacy(true)}}
                             />
                         </div>
