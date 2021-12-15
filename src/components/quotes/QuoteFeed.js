@@ -36,14 +36,12 @@ export const QuoteFeed = () => {
                 {(pathname === '/myfeed')
                     ? <section className="groupsContainer">
                         <div className="groupList">
-                            <h3>My Groups</h3>
-                            {/* <ul> */}
+                            <h3>My Groups</h3>                       
                             {userGroups?.map(group => {
                                 return <>
                                     <li><Link className="myGroupList" to={`groups/${group.id}`}>{group.name}</Link></li>
                                 </>
                             })}
-                            {/* </ul> */}
                         </div>
                     </section>
                     : ""}

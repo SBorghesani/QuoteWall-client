@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { getGroup, getQuotesByGroup, getCurrentUser, searchQuotes } from "./GroupProvider.js"
 import { useParams } from "react-router"
+import { Button, TextField } from "@mui/material"
 import '../quotes/Quotes.css'
 import { AdminGroupPage } from "./AdminGroupPage.js"
 
@@ -65,10 +66,10 @@ export const GroupPage = () => {
                     <h2>{group?.name} Feed</h2>
                     <fieldset className="search">
                         <label htmlFor="q">Search</label>
-                        <input name="q" type="text" onChange={quoteSearch} />
-                        <button
+                        <TextField variant="standard" name="q" type="text" onChange={quoteSearch} />
+                        <Button color="secondary" variant="contained"
                             onClick={() => history.push(`/groups/${groupId}/newquote`)}
-                        >New Quote</button>
+                        >New Quote</Button>
                     </fieldset>
                     <section className="membersContainer">
                         <div className="members">
@@ -107,20 +108,14 @@ export const GroupPage = () => {
                                                     : ""
                                             }
                                         </div>
-                                        <section className="quoteFooter">
-                                            {/* <div className="quoteFooterInfo"> */}
-                                            {/* <div className="quoteFooter user"> */}
-                                        Posted by: {quote.user.username}<br />
-                                            {/* </div> */}
-                                            {/* <div className="quoteFooter group"> */}
-                                        Posted in: {quote.group.name}
-                                            {/* </div> */}
-                                            {/* </div> */}
+                                        <section className="quoteFooter">                                           
+                                        Posted by: {quote.user.username}<br />                                            
+                                        {/* Posted in: {quote.group.name} */}
                                         </section>
                                         <div className="quoteEdit">
                                             {
                                                 verifyUser(quote.user.id)
-                                                    ? <Link to={`/quotes/${quote.id}/edit`} onClick={(e) => {
+                                                    ? <Link className="editLink" to={`/quotes/${quote.id}/edit`} onClick={(e) => {
                                                         // e.preventDefault()
                                                     }}>⚙️</Link>
                                                     : ""

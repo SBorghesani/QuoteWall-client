@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { getAllGroups, getUserGroups, joinGroup, leaveGroup, requestToJoin, getCurrentUser, searchGroups } from "./GroupProvider.js"
+import { Button, TextField} from "@mui/material"
 import { useParams } from "react-router"
 import './Groups.css'
 
@@ -86,7 +87,7 @@ export const GroupFeed = () => {
             <h2>{pathname === '/mygroups' ? 'My Groups' : 'All Groups'}</h2>
             <fieldset className="search">
                 <label htmlFor="q">Search</label>
-                <input name="q" type="text" onChange={groupSearch} />
+                <TextField variant="standard" name="q" type="text" placeholder="Search Groups" onChange={groupSearch} />
             </fieldset>
             <section className="groupsDisplay">
                 {groups?.map(group => {
@@ -99,27 +100,27 @@ export const GroupFeed = () => {
                             {
                                 isUserMember(group.id)
                                     ? <div className="buttonDisplay">
-                                        <button className="leaveButton"
+                                        <Button color="secondary" variant="contained" className="leaveButton"
                                             onClick={() => {
                                                 (currentUser.id === group.admin.id)
                                                     ? window.alert("You cannot leave a group that you administrate.")
                                                     : leaveGroup(group.id).then(renderComponent)
                                             }}
-                                        >Leave</button>
-                                        <button className="viewButton"
+                                        >Leave</Button>
+                                        <Button color="secondary" variant="contained" className="viewButton"
                                             onClick={() => {
                                                 history.push(`/groups/${group.id}`)
-                                            }}>View</button>
+                                            }}>View</Button>
                                     </div>
                                     : (group.private) ?
                                         !(userRequestSent(group)) ?
-                                            <button className="requestJoinButton"
+                                            <Button color="secondary" variant="contained" className="requestJoinButton"
                                                 onClick={() => requestToJoin(group.id).then(renderComponent)}
-                                            >Request to Join</button>
+                                            >Request to Join</Button>
                                             : "Request Sent"
-                                        : <button className="joinButton"
+                                        : <Button color="secondary" variant="contained" className="joinButton"
                                             onClick={() => joinGroup(group.id).then(renderComponent)}
-                                        >Join</button>
+                                        >Join</Button>
                             }
                         </section>
                     </>

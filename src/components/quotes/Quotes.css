@@ -1,5 +1,6 @@
 .editLink {
-    margin: 1rem
+    margin: 1rem;
+    text-decoration: none;
 }
 
 .members li {
@@ -41,9 +42,6 @@
     flex-direction: column;
     align-items: center;
     margin: auto;
-    /* border: 1px solid black;
-    border-radius: 10px; */
-    /* background-color:rgba(52, 58, 64, 0.164); */
     border-bottom: 1px solid rgb(52, 58, 64);
     margin-bottom: 2em;
     padding: 2em 2em .5em 2em;
@@ -93,7 +91,6 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
-    /* margin-bottom: 100%; */
     justify-content: center;
     margin: auto;
 }
@@ -110,7 +107,6 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
-    /* margin-bottom: 100%; */
     justify-content: center;
     margin: auto;
 }
@@ -125,7 +121,6 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    /* align-items: center; */
     margin: auto;
     margin-top: 2rem;
     border: 1px solid black;
@@ -140,7 +135,6 @@
 }
 
 textarea {
-    /* width: fit-content; */
     max-width: 60%;
     min-width: 60%;
     max-height: 5rem;
@@ -162,4 +156,20 @@ textarea {
 
 input {
     margin: 2%;
+}
+
+@media only screen and (max-width: 768px) {
+    .myQuotesView {
+        min-width: 100%;
+    }
+
+    .quoteContainer {
+        margin: auto;
+        width: 100%;
+        
+    }
+
+    .feedContainer {
+        display: inline;
+    }
 }
