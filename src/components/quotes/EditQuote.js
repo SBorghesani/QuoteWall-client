@@ -47,9 +47,9 @@ export const EditQuote = () => {
     return (
         <form className="quoteForm">
             <div className="panel-block">
-                <form style={{ width: "100%" }}>
+                <form>
                     <div className="field">
-                        <label htmlFor="quoteText" className="quoteText">Quote: </label>
+                        <label htmlFor="quoteText" className="quoteText">Edit Quote: </label>
                         <div className="control">
                             <textarea
                                 class="textarea"
@@ -84,7 +84,7 @@ export const EditQuote = () => {
                         </div>
                     </div>
                     <div className="field">
-                        <div className="control">
+                        <div className="quoteSubmit">
                             <button type="submit"
                                 onClick={evt => {
                                     evt.preventDefault()

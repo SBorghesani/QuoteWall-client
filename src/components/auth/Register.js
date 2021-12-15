@@ -1,12 +1,12 @@
 import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
+import { Button, TextField } from "@mui/material"
 import "./Auth.css"
 
 export const Register = () => {
     const username = useRef()
     const password = useRef()
     const verifyPassword = useRef()
-    // const passwordDialog = useRef()
     const history = useHistory()
 
     const handleRegister = (e) => {
@@ -30,7 +30,6 @@ export const Register = () => {
                 .then(res => {
                     if ("token" in res) {
                         localStorage.setItem("quotewall_user", res.token)
-                        // localStorage.setItem("is_admin", false)
                         history.push("/")
                     }
                 })
@@ -41,34 +40,28 @@ export const Register = () => {
 
     return (
         <main style={{ textAlign: "center" }}>
-
-            {/* <dialog className="dialog dialog--password" ref={passwordDialog}>
-                <div>Passwords do not match</div>
-                <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
-            </dialog> */}
-
             <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Register an account</h1>
+                <h2 className="h3 mb-3 font-weight-normal">Register an account</h2>
                 <fieldset>
                     <label htmlFor="inputUsername">Username</label>
-                    <input ref={username} type="text" name="username" className="form-control" placeholder="Username" required />
+                    <TextField variant="filled" inputRef={username} type="text" name="username" className="form-control" placeholder="Username" required autoFocus/>
                 </fieldset>
                 <fieldset>
                     <label htmlFor="inputPassword"> Password </label>
-                    <input ref={password} type="password" name="password" className="form-control" placeholder="Password" required />
+                    <TextField variant="filled" inputRef={password} type="password" name="password" className="form-control" placeholder="Password" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="verifyPassword"> Verify Password </label>
-                    <input ref={verifyPassword} type="password" name="verifyPassword" className="form-control" placeholder="Verify password" required />
+                    <TextField variant="filled" inputRef={verifyPassword} type="password" name="verifyPassword" className="form-control" placeholder="Verify password" required />
                 </fieldset>
                 <fieldset style={{
                     textAlign: "center"
                 }}>
-                    <button className="btn btn-1 btn-sep icon-send" type="submit" onClick={handleRegister}>Register</button>
+                    <Button color="secondary" variant="contained" className="btn btn-1 btn-sep icon-send" type="submit" onClick={handleRegister}>Register</Button>
                 </fieldset>
             </form>
             <section className="link--register">
-                Already registered? <Link to="/login">Login</Link>
+                Already registered? <Link className="link" to="/login">Login</Link>
             </section>
         </main>
     )

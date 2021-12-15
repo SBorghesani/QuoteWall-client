@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { useParams } from "react-router"
+import { Button, TextField} from "@mui/material"
 import { adminLeaveGroup, getGroup, denyRequest, adminJoinGroup } from './GroupProvider.js'
 import { deleteQuote, getQuotes } from '../quotes/QuoteProvider.js'
 import '../quotes/Quotes.css'
 
-export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, contextToggle }) => {
+export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, contextToggle, quoteSearch }) => {
     const [group, setGroup] = useState({})
     const history = useHistory()
 
@@ -25,9 +26,13 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
     return (
         <>
             <h2>{group?.name} Feed</h2>
-            <button
-                onClick={() => history.push(`/groups/${groupId}/newquote`)}
-            >New Quote</button>
+            <fieldset className="search">
+                <label htmlFor="q">Search</label>
+                <TextField variant="standard" name="q" type="text" placeholder="Search Group" onChange={quoteSearch} />
+                <Button color="secondary" variant="contained"
+                    onClick={() => history.push(`/groups/${groupId}/newquote`)}
+                >New Quote</Button>
+            </fieldset>
             <section className="membersContainer">
                 <div className="members">
                     <h3> Group Members </h3>
@@ -97,7 +102,6 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
                                 <section className="quoteFooter">
                                     <div>
                                         Posted by: {quote.user.username}<br />
-                                        Posted in: {quote.group.name}
                                     </div>
                                 </section>
                                 <div className="quoteEdit">
