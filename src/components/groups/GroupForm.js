@@ -11,6 +11,14 @@ export const GroupForm = () => {
     const history = useHistory()
 
 
+    const handlePrivacy = () => {
+        if (privateToggle === false) {
+            togglePrivacy(true)
+        } else if (privateToggle === true) {
+            togglePrivacy(false)
+        }
+    }
+
     const handleControlledInputChange = (event) => {
         const groupCopy = Object.assign({}, newGroup)
         groupCopy[event.target.name] = event.target.value
@@ -59,7 +67,7 @@ export const GroupForm = () => {
                                 proptype="varchar"
                                 value={newGroup.private}
                                 onChange={(e) => {
-                                    togglePrivacy(true)}}
+                                    handlePrivacy()}}
                             />
                         </div>
                     </div>
