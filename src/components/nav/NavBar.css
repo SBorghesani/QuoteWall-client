@@ -1,7 +1,11 @@
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: auto;
+    background-color: rgb(85, 92, 99);
+    border-radius: 1rem;
+    width: 100%;
+    padding-left: 0;
 }
 
 .navbar__link,

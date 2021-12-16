@@ -65,12 +65,16 @@ export const GroupPage = () => {
                 : <>
                     <h2>{group?.name} Feed</h2>
                     <fieldset className="search">
-                        <label htmlFor="q">Search</label>
-                        <TextField variant="standard" name="q" type="text" onChange={quoteSearch} />
+                        <div>
+                            <label className="search--icon" htmlFor="q">🔎</label>
+                            <TextField variant="standard" name="q" type="text" onChange={quoteSearch} />
+                        </div>
+                    </fieldset>
+                    <div className="newQuote--button">
                         <Button color="secondary" variant="contained"
                             onClick={() => history.push(`/groups/${groupId}/newquote`)}
                         >New Quote</Button>
-                    </fieldset>
+                    </div>
                     <section className="membersContainer">
                         <div className="members">
                             <h3> Group Members </h3>
@@ -108,9 +112,9 @@ export const GroupPage = () => {
                                                     : ""
                                             }
                                         </div>
-                                        <section className="quoteFooter">                                           
-                                        Posted by: {quote.user.username}<br />                                            
-                                        {/* Posted in: {quote.group.name} */}
+                                        <section className="quoteFooter">
+                                            Posted by: {quote.user.username}<br />
+                                            {/* Posted in: {quote.group.name} */}
                                         </section>
                                         <div className="quoteEdit">
                                             {

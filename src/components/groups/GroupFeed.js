@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Link, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { getAllGroups, getUserGroups, joinGroup, leaveGroup, requestToJoin, getCurrentUser, searchGroups } from "./GroupProvider.js"
 import { Button, TextField} from "@mui/material"
-import { useParams } from "react-router"
 import './Groups.css'
 
 
@@ -86,7 +85,7 @@ export const GroupFeed = () => {
         <>
             <h2>{pathname === '/mygroups' ? 'My Groups' : 'All Groups'}</h2>
             <fieldset className="search">
-                <label htmlFor="q">Search</label>
+                <label className="search--icon" htmlFor="q">🔎 </label>
                 <TextField variant="standard" name="q" type="text" placeholder="Search Groups" onChange={groupSearch} />
             </fieldset>
             <section className="groupsDisplay">
