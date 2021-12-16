@@ -158,18 +158,57 @@ input {
     margin: 2%;
 }
 
+.search {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.newQuote--button {
+    display: flex;
+    justify-content: center;
+}
+
 @media only screen and (max-width: 768px) {
     .myQuotesView {
         min-width: 100%;
     }
 
+    .editLink {
+        margin: .3rem;
+    }
+
     .quoteContainer {
         margin: auto;
         width: 100%;
-        
+    }
+
+    .groupList {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .myGroupList {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    .groupsContainer { 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        border-left: 1px solid rgb(52, 58, 64);
+        border-right: 1px solid rgb(52, 58, 64);
+        margin: auto;
+        padding-left: 2rem;  
+        padding-right: 2rem;  
     }
 
     .feedContainer {
-        display: inline;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }
+

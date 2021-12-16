@@ -6,6 +6,7 @@ import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import QuoteWallLogo from '../QuoteWallLogo.png'
+import './QuoteWall.css'
 
 export const QuoteWall = () => {
     document.title = "QuoteWall"
@@ -24,7 +25,7 @@ export const QuoteWall = () => {
     return (
         <>
             <ThemeProvider theme={theme} >
-                <h1 id="logo"><img src={QuoteWallLogo} alt="logo" width="max" height="max" /></h1>
+                <h1 id="logo"><img src={QuoteWallLogo} alt="logo" className="header--logo" width="max" height="max" /></h1>
                 <Route render={() => {
                     if (localStorage.getItem("quotewall_user")) {
                         return <>

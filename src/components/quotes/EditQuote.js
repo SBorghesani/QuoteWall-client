@@ -63,7 +63,7 @@ export const EditQuote = () => {
                     <div className="field">
                         <label htmlFor="quoter" className="quoter">Who are you quoting: </label>
                         <div className="control">
-                            <input type="text" name="quoter" required autoFocus className="input"
+                            <input type="text" name="quoter" required className="input"
                                 proptype="varchar"
                                 placeholder="Who are you quoting?"
                                 value={quote.quoter}

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { useParams } from "react-router"
-import { Button, TextField} from "@mui/material"
+import { Button, TextField } from "@mui/material"
 import { adminLeaveGroup, getGroup, denyRequest, adminJoinGroup } from './GroupProvider.js'
-import { deleteQuote, getQuotes } from '../quotes/QuoteProvider.js'
+import { deleteQuote } from '../quotes/QuoteProvider.js'
 import '../quotes/Quotes.css'
 
 export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, contextToggle, quoteSearch }) => {
@@ -27,12 +26,14 @@ export const AdminGroupPage = ({ quotes, groupId, verifyUser, contextHandler, co
         <>
             <h2>{group?.name} Feed</h2>
             <fieldset className="search">
-                <label htmlFor="q">Search</label>
+                <label className="search--icon" htmlFor="q">🔎</label>
                 <TextField variant="standard" name="q" type="text" placeholder="Search Group" onChange={quoteSearch} />
+            </fieldset>
+            <div className="newQuote--button">
                 <Button color="secondary" variant="contained"
                     onClick={() => history.push(`/groups/${groupId}/newquote`)}
                 >New Quote</Button>
-            </fieldset>
+            </div>
             <section className="membersContainer">
                 <div className="members">
                     <h3> Group Members </h3>

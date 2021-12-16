@@ -90,8 +90,13 @@ button {
 .search {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     border: none;
     background-color: rgb(28, 31, 37);
+    justify-content: center;
+}
+
+.search--icon {
+    margin-right: 1rem;
 }
